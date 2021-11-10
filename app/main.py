@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ig_payments.wsgi import application
+from app.wsgi import application
 
 # App Engine by default looks for a main.py file at the root of the app
 # directory with a WSGI-compatible object called app.

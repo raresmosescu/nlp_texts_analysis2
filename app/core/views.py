@@ -1,8 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import datetime
+from .nlp import analyze_text
+from .sample_texts import samples
 
 def home(request):
-    now = datetime.datetime.now()
-    html = f"<html><body>It is now {now}.</body></html>"
-    return HttpResponse(html)
+    # get form input
+
+    # process input - codu cu analiza nlp
+
+    return render(request, 'index.html')
+
+def results(request):
+    text = request.POST.get('text')
+    print(text, bool(text))
+    if text:
+        r = analyze_text(text).most_common(60)
+    else:
+        r = analyze_text(samples.sample1).most_common(60)
+    return render(request, 'results.html', context={'results': r, 'results_str': str(dict(r))})
