@@ -1,32 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <section class="section">
         <div class="container">
-            <h1 class="title">
-                Enter your text
-            </h1>
-            <form class="form" action="/results/" method="post">{% csrf_token %}
-                <div>
+            <form enctype="multipart/form-data" class="form" action="/results/" method="post">{% csrf_token %}
+                <div class="select mb-4">
+                    <select name="input-method" id="text-type">
+                        <option id="text-input" value="1" selected>Enter your text</option>
+                        <option id="file-upload" value="2">Upload text file</option>
+                    </select>
+                </div>
+                <div class="file has-name is-hidden">
+                    <label class="file-label">
+                        <input name="file" class="file-input" type="file" accept=".txt" name="resume">
+                        <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Choose a file…
+                            </span>
+                        </span>
+                        <span class="file-name">
+                            No file chosen
+                        </span>
+                    </label>
+                </div>
+                <div class="text">
                     <textarea class="input textarea" name="text" id="" cols="10" rows="5"></textarea>
                 </div>
-                <button class="button mt-4" type="submit">Submit</button>
+                <button id="submit" class="button mt-4" type="submit">Submit</button>
             </form>
         </div>
     </section>
-</body>
-<footer class="footer">
-    <div class="content has-text-centered">
-      <p>
-        <strong>Texts Analyzer</strong> by Rares Mosescu, Claudiu Labus and Ioan Anghel.
-      </p>
-    </div>
-  </footer>
-</html>
+{% endblock content %}
+
+{% block scripts %}
+    <script>
+        $(function() {
+            $("#submit").click({}, () => {
+                $("#submit").addClass("is-loading")
+            })
+            $("#text-type").change(() => {
+                value = $("select option:selected")[0].value
+                if (value == 1) {
+                    $(".file").addClass("is-hidden")
+                    $(".text").removeClass("is-hidden")
+                }
+                else if (value == 2) {
+                    $(".file").removeClass("is-hidden")
+                    $(".text").addClass("is-hidden")
+                }
+            })
+            $(".file-input").change(() => {
+                $(".file-name").text($(".file-input")[0].value.split('\\')[2])
+            })
+        })
+    </script>
+{% endblock scripts %}
