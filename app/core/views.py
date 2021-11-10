@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .nlp import analyze_text
+from .sample_texts import samples
 
 def home(request):
     # get form input
@@ -11,5 +12,9 @@ def home(request):
 
 def results(request):
     text = request.POST.get('text')
-    print(analyze_text(text))
-    return HttpResponse(str(dict(analyze_text(text))))
+    print(text, bool(text))
+    if text:
+        r = analyze_text(text).most_common(60)
+    else:
+        r = analyze_text(samples.sample1).most_common(60)
+    return render(request, 'results.html', context={'results': r, 'results_str': str(dict(r))})

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <title>Results</title>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                Results
+            </h1>
+            <h1 class="title is-6">If input is empty, it will use a sample text</h1>
+            <div class="mt-5">
+                <table class="table-container results">
+                    <thead>
+                        <tr>
+                        <th>Noun</th>
+                        <th>Number of times used</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for k,v in results %}
+                            <tr>
+                                <td>{{k}}</td>
+                                <td>{{v}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>   
+            </div> 
+        </div>
+      </section>
+</body>
+</html>
+
