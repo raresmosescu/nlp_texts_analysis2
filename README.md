@@ -9,5 +9,5 @@ Analyze the text chats between people to uncover important insights about their 
 To install the `ro_core_news_sm` run `python -m spacy download ro_core_news_sm`
 
 # Deployment using App Engine
-1. You need to package the modules using commad: `pip install -l lib -r requirements.txt`
+1. You need to package the modules using commad: `pip install -t lib -r requirements.txt`
 2. Deploy using `gcloud app deploy`
