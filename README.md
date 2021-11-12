@@ -7,3 +7,7 @@ Analyze the text chats between people to uncover important insights about their 
 3. Export your text messages as `.txt`. For WhatsApp you can follow [this](https://faq.whatsapp.com/android/chats/how-to-save-your-chat-history/?lang=en) guide. Make sure you do it from mobile and uncheck media export.
 
 To install the `ro_core_news_sm` run `python -m spacy download ro_core_news_sm`
+
+# Deployment using App Engine
+1. You need to package the modules using commad: `pip install -t lib -r requirements.txt`
+2. Deploy using `gcloud app deploy`
