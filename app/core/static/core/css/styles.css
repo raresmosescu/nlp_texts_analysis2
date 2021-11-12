@@ -1,0 +1,26 @@
+@media screen and (min-width: 800px) {
+    #centered-container {
+        width: 50vw;
+    }
+}
+
+.no-link-decoration {
+    color: inherit; /* blue colors for links too */
+    text-decoration: none; /* no underline */
+}
+
+#guide-dropdown-button {
+    color: inherit; /* blue colors for links too */
+    text-decoration: none; /* no underline */
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer{
+    /* margin-top: auto; */
+    font-size: small;
+}
