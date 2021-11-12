@@ -1,42 +1,83 @@
-{% extends 'base.html' %} {% block content %}
-<section class="section">
-  <div class="container">
-    <form
-      enctype="multipart/form-data"
-      class="form"
-      action="/results/"
-      method="post"
-    >
-      {% csrf_token %}
-      <div class="select mb-4">
-        <select name="input-method" id="text-type">
-          <option id="text-input" value="1" selected>Enter your text</option>
-          <option id="file-upload" value="2">Upload text file</option>
-        </select>
-      </div>
-      <div class="file has-name is-hidden">
-        <label class="file-label">
-          <input name="file" class="file-input" type="file" accept=".txt" />
-          <span class="file-cta">
-            <span class="file-icon">
-              <i class="fas fa-upload"></i>
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section" >
+  
+  <div class="container" id="centered-container">
+    <h1 class="title is-5">Why many people like this tool</h1>
+
+    <div class="info mb-6">
+      <span class="icon">
+        <i class="fas fa-angle-right"></i>
+      </span>You'll be amused by the topics you and your friends talked about the most (and how many times you apologized to each other) <br>
+      <span class="icon">
+        <i class="fas fa-angle-right"></i>
+      </span>Learn from your communication mistakes and habits and become a better version of yourself <br>
+      <span class="icon">
+        <i class="fas fa-angle-right"></i>
+      </span>We don't store any info and, because we're still testing, it's completely free
+    </div>
+
+    <div class="container">
+      <form
+        enctype="multipart/form-data"
+        class="form"
+        action="/results/"
+        method="post"
+      >
+        {% csrf_token %}
+        <div class="select mb-4">
+          <select name="input-method" id="text-type">
+            <option id="text-input" value="1">Enter your text</option>
+            <option id="file-upload" value="2" selected>Upload text file</option>
+          </select>
+        </div>
+        
+        <article class="message guide">
+          <a id="guide-dropdown-button">
+            <div class="message-header has-background-grey has-text-white no-link-decoration">
+              <p >How to use</p>
+              <span class="icon">
+                <i id="guide-dropdown-button-icon" class="fas fa-angle-down"></i>
+              </span>        
+            </div>
+          </a>
+          <div id="guide-dropdown-message" class="message-body">
+            <span class="icon">
+              <i class="fas fa-arrow-right"></i>
+            </span> 
+            Export your WhatsApp conversations using <a href="https://faq.whatsapp.com/android/chats/how-to-save-your-chat-history/?lang=en"><strong>this guide</strong></a> (only texts, no media).<br>
+            <span class="icon">
+              <i class="fas fa-arrow-right"></i>
+            </span> 
+            Upload the text file below and click "Submit" <br><br>
+            <strong>Note:</strong> We never store any personal information and use SSL encryption to keep your data safe when sending it to and from our servers.        </div>
+        </article>
+
+        <div class="file has-name is-hidden">
+          <label class="file-label">
+            <input name="file" class="file-input" type="file" accept=".txt" />
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label"> Choose a file… </span>
             </span>
-            <span class="file-label"> Choose a file… </span>
-          </span>
-          <span class="file-name"> No file chosen </span>
-        </label>
-      </div>
-      <div class="text">
-        <textarea
-          class="input textarea"
-          name="text"
-          id=""
-          cols="10"
-          rows="5"
-        ></textarea>
-      </div>
-      <button id="submit" class="button mt-4" type="submit">Submit</button>
-    </form>
+            <span class="file-name"> No file chosen </span>
+          </label>
+        </div>
+        <div class="text">
+          <textarea
+            class="input textarea"
+            name="text"
+            id=""
+            cols="10"
+            rows="5"
+          ></textarea>
+        </div>
+        <button id="submit" class="button mt-4 is-link" type="submit">Submit</button>
+      </form>
+    </div>
   </div>
 </section>
 {% endblock content %} {% block scripts %}
@@ -59,10 +100,24 @@
     if (value == 1) {
       $(".file").addClass("is-hidden");
       $(".text").removeClass("is-hidden");
+      $("article.message.guide").hide();
     } else if (value == 2) {
       $(".file").removeClass("is-hidden");
       $(".text").addClass("is-hidden");
+      $("article.message.guide").show();
     }
   }
+
+  $('#guide-dropdown-button').click(function() {
+    $('#guide-dropdown-message').toggle();
+    $('#guide-dropdown-button-icon').toggleClass('fas fa-angle-up');
+    $('#guide-dropdown-button-icon').toggleClass('fas fa-angle-down');
+    if ($('#guide-dropdown-message').css('display') == 'none') {
+      $('.message-header').css('border-radius', '4px 4px 4px 4px')
+    } else {
+      $('.message-header').css('border-radius', '4px 4px 0px 0px')
+    }
+  });
+
 </script>
 {% endblock scripts %}
