@@ -4,7 +4,7 @@ from .nlp import analyze_text, analyze_whatsapp_export
 from .sample_texts import samples
 
 def home(request):
-    return render(request, 'index.html')
+    return render(request, 'index_RO.html')
 
 def results(request):
     if request.method == 'POST':
@@ -17,7 +17,7 @@ def results(request):
           r = analyze_text(text).most_common(60)
         else:
           r = analyze_text(samples.sample1).most_common(60)
-        return render(request, 'results.html', context={'results': r, 'results_str': str(dict(r))})
+        return render(request, 'results_RO.html', context={'results': r, 'results_str': str(dict(r))})
         
       else:
         text = request.FILES['file'].read()
@@ -25,7 +25,7 @@ def results(request):
           r = analyze_whatsapp_export(text).most_common(60)
         else:
           r = analyze_whatsapp_export(samples.sample1).most_common(60)
-        return render(request, 'results.html', context={'results': r, 'results_str': str(dict(r))})
+        return render(request, 'results_RO.html', context={'results': r, 'results_str': str(dict(r))})
           
     else:
       return HttpResponse('i donno man')

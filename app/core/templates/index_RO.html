@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section" >
+  
+  <div class="container" id="centered-container">
+    <h1 class="title is-5">De ce multora le place aplicatia asta?</h1>
+
+    <div class="info mb-6">
+      <span class="icon">
+        <i class="fas fa-angle-right"></i>
+      </span>E distractiv si interesant sa afli care sunt cele mai populare subiecte pe care le-ai discutat cu prietenii si grupurile de pe WhatsApp<br>
+      <span class="icon">
+        <i class="fas fa-angle-right"></i>
+      </span>Invata din greselile de comunicare si devino o versiune mai buna a ta<br>
+      <span class="icon">
+        <i class="fas fa-angle-right"></i>
+      </span>Nu stocam nicio informatie si, pentru ca inca testam, nu cerem nimic la schimb sa va jucati cu AI-ul
+    </div>
+
+    <div class="container">
+      <form
+        enctype="multipart/form-data"
+        class="form"
+        action="/results/"
+        method="post"
+      >
+        {% csrf_token %}
+        <div class="select mb-4">
+          <select name="input-method" id="text-type">
+            <option id="text-input" value="1">Copy/paste conversatie</option>
+            <option id="file-upload" value="2" selected>Incarca conversatie text</option>
+          </select>
+        </div>
+        
+        <article class="message guide">
+          <a id="guide-dropdown-button">
+            <div class="message-header has-background-grey has-text-white no-link-decoration">
+              <p >Cum folosesti?</p>
+              <span class="icon">
+                <i id="guide-dropdown-button-icon" class="fas fa-angle-down"></i>
+              </span>        
+            </div>
+          </a>
+          <div id="guide-dropdown-message" class="message-body">
+            <span class="icon">
+              <i class="fas fa-arrow-right"></i>
+            </span> 
+            Da "Export" conversatiei tale de WhatsApp folosind <a href="https://faq.whatsapp.com/android/chats/how-to-save-your-chat-history/?lang=en"><strong>acest ghid</strong></a> (doar text, fara media).<br>
+            <span class="icon">
+              <i class="fas fa-arrow-right"></i>
+            </span> 
+            Uploadeaza fisierul text obtinut si da click pe "Analizeaza" <br>
+            <span class="icon">
+              <i class="fas fa-arrow-right"></i>
+            </span> 
+            Pentru rezultate mai bune, asigura-te ca e o persoana cu care discuti des prin mesaje <br><br>
+            <strong>Info:</strong> Nu stocam niciodata informatii personale (nume, mesaje, etc.) si folosim criptare prin SSL sa pastram comunicarea dintre tine si server sigura.  
+          </div>
+        </article>
+
+        <div class="file has-name is-hidden">
+          <label class="file-label">
+            <input name="file" class="file-input" type="file" accept=".txt" />
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label"> Selecteaza fisier text... </span>
+            </span>
+            <span class="file-name"> Inca nu s-a selectat </span>
+          </label>
+        </div>
+        <div class="text">
+          <textarea
+            class="input textarea"
+            name="text"
+            id=""
+            cols="10"
+            rows="5"
+          ></textarea>
+        </div>
+        <button id="submit" class="button mt-4 is-link" type="submit">Analizeaza</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock content %} {% block scripts %}
+<script>
+  $(function () {
+    pickInput();
+    $("#submit").click({}, () => {
+      $("#submit").addClass("is-loading");
+    });
+    $("#text-type").change(() => {
+      pickInput();
+    });
+    $(".file-input").change(() => {
+      $(".file-name").text($(".file-input")[0].value.split("\\")[2]);
+    });
+  });
+
+  function pickInput() {
+    value = $("select option:selected")[0].value;
+    if (value == 1) {
+      $(".file").addClass("is-hidden");
+      $(".text").removeClass("is-hidden");
+      $("article.message.guide").hide();
+    } else if (value == 2) {
+      $(".file").removeClass("is-hidden");
+      $(".text").addClass("is-hidden");
+      $("article.message.guide").show();
+    }
+  }
+
+  $('#guide-dropdown-button').click(function() {
+    $('#guide-dropdown-message').toggle();
+    $('#guide-dropdown-button-icon').toggleClass('fas fa-angle-up');
+    $('#guide-dropdown-button-icon').toggleClass('fas fa-angle-down');
+    if ($('#guide-dropdown-message').css('display') == 'none') {
+      $('.message-header').css('border-radius', '4px 4px 4px 4px')
+    } else {
+      $('.message-header').css('border-radius', '4px 4px 0px 0px')
+    }
+  });
+
+</script>
+{% endblock scripts %}
