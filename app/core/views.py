@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .nlp import analyze_text, analyze_whatsapp_export
 from .sample_texts import samples
+from .models import Noun
+
 
 def home(request):
     return render(request, 'index_RO.html')
@@ -23,6 +25,10 @@ def results(request):
         text = request.FILES['file'].read()
         if text:
           r = analyze_whatsapp_export(text).most_common(60)
+          entry_list = []
+          for n in r:
+            entry_list.append(Noun(result_id=-1, word=n[0], freq=n[1], score=-1))
+          Noun.objects.bulk_create(entry_list)
         else:
           r = analyze_whatsapp_export(samples.sample1).most_common(60)
         return render(request, 'results_RO.html', context={'results': r, 'results_str': str(dict(r))})
@@ -30,3 +36,10 @@ def results(request):
     else:
       return HttpResponse('i donno man')
       # aah don't worry man, life is good, drink a beer or somethin
+
+def print_db(request):
+    html = '<div><ul>'
+    for obj in Noun.objects.all():
+        html += f'<li>{obj.word}, {obj.freq}</li>'
+    html += '</ul></div>'
+    return HttpResponse(html)
