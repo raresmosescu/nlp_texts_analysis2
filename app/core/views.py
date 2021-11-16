@@ -1,10 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
+from core.models import Feedbacks
 from .nlp import analyze_text, analyze_whatsapp_export
 from .sample_texts import samples
 
 def home(request):
-    return render(request, 'index.html')
+  if request.method == 'POST':
+    feedback = request.POST.get('feedback')
+    if feedback:
+      Feedbacks.objects.create(feedback=feedback)
+  return render(request, 'index.html')
 
 def results(request):
     if request.method == 'POST':

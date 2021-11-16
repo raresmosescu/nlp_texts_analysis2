@@ -1,3 +1,4 @@
 from django.db import models
 
-# Create your models here.
+class Feedbacks(models.Model):
+  feedback = models.TextField(max_length=10000)
