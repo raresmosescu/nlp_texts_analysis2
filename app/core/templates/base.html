@@ -2,35 +2,52 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
-  <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
-  <title>Texts Analyzer</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+    <link rel="stylesheet" href="{% static 'core/css/styles.css' %}" />
+    <title>Texts Analyzer</title>
+  </head>
 
-<body>
-  <div class="has-text-centered mt-4">
-    <span><span class="title has-text-centered">Conversation Analyzer<br></span><span class="has-text-centered">Powered by AI</span></span>
-  </div>
-  {% block content %}
-  {% endblock content %}
-
-  <footer>
-    <div class="content has-text-centered has-background-black p-4 has-text-white">
-      <p>
-        <strong class="has-text-white">Conversation Analyzer</strong> powered by AI<br>
-        <strong class="has-text-white">Contributors:</strong> Rares Mosescu, Claudiu Labus and Ioan Anghel <br>
-        University of Bucharest
-      </p>
+  <body>
+    <div class="has-text-centered mt-4">
+      <span
+        ><span class="title has-text-centered">Conversation Analyzer<br /></span
+        ><span class="has-text-centered">Powered by AI</span></span
+      >
     </div>
-  </footer>
-  
-  {% block scripts %}
-  {% endblock scripts %}
-</body>
+    {% block content %} {% endblock content %}
+
+    <footer>
+      <div
+        class="
+          content
+          has-text-centered has-background-black
+          p-4
+          has-text-white
+        "
+      >
+        <p>
+          <strong class="has-text-white">Conversation Analyzer</strong> powered
+          by AI<br />
+          <strong class="has-text-white">Contributors:</strong> Rares Mosescu,
+          Claudiu Labus and Ioan Anghel <br />
+          University of Bucharest
+        </p>
+      </div>
+    </footer>
+
+    {% block scripts %} {% endblock scripts %}
+  </body>
 </html>

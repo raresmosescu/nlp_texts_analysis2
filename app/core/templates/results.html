@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block content %} {% load static %}
+
 <section class="section">
   <div class="container">
     <h1 class="title">Results</h1>
@@ -11,15 +12,32 @@
             <th>Number of times used</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tabel">
           {% for k,v in results %}
           <tr>
             <td>{{k}}</td>
             <td>{{v}}</td>
           </tr>
           {% endfor %}
+          <tr style="color: white">
+            <td>Daca vrei intra daca nu nu etc</td>
+          </tr>
         </tbody>
       </table>
+      <a
+        download="text_analyzer_results.png"
+        href="{% static 'text_analyzer_results.png' %}"
+        title="ImageName"
+      >
+        download results as image
+      </a>
+      <button
+        id="share"
+        class="button mx-5 my-2 is-link"
+        data-clipboard-target="#tabel"
+      >
+        Share
+      </button>
     </div>
   </div>
 </section>
@@ -30,8 +48,25 @@
     placeholder="Feedback"
     name="feedback"
   ></textarea>
-  <button id="submit" class="button mx-5 my-2 is-link" type="submit">
+  <button
+    id="submit"
+    data-clipboard-target="#tabel"
+    class="button mx-5 my-2 is-link"
+    type="submit"
+  >
     Submit
   </button>
 </form>
-{% endblock %}
+{% endblock %}{% block scripts %}
+<script>
+  var clipboard = new ClipboardJS(".button");
+
+  clipboard.on("success", function (e) {
+    console.log(e);
+  });
+
+  clipboard.on("error", function (e) {
+    console.log(e);
+  });
+</script>
+{% endblock scripts %}
