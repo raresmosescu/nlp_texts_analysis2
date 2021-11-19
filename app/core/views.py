@@ -1,12 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from core.generate_image import generate_by_dict
+
+from core.models import Feedbacks
 from .nlp import analyze_text, analyze_whatsapp_export
 from .sample_texts import samples
 from .models import Noun
 
 
 def home(request):
-    return render(request, 'index_RO.html')
+  if request.method == 'POST':
+    feedback = request.POST.get('feedback')
+    if feedback:
+      Feedbacks.objects.create(feedback=feedback)
+  return render(request, 'index_EN.html')
 
 def results(request):
     if request.method == 'POST':
@@ -19,7 +26,8 @@ def results(request):
           r = analyze_text(text).most_common(60)
         else:
           r = analyze_text(samples.sample1).most_common(60)
-        return render(request, 'results_RO.html', context={'results': r, 'results_str': str(dict(r))})
+        generate_by_dict(dict(r))
+        return render(request, 'results_EN.html', context={'results': r, 'results_str': str(dict(r))})
         
       else:
         text = request.FILES['file'].read()
@@ -31,7 +39,8 @@ def results(request):
           Noun.objects.bulk_create(entry_list)
         else:
           r = analyze_whatsapp_export(samples.sample1).most_common(60)
-        return render(request, 'results_RO.html', context={'results': r, 'results_str': str(dict(r))})
+        generate_by_dict(dict(r))
+        return render(request, 'results_EN.html', context={'results': r, 'results_str': str(dict(r))})
           
     else:
       return HttpResponse('i donno man')

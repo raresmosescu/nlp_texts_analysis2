@@ -6,3 +6,6 @@ class Noun(models.Model):
 	word = models.CharField(max_length=30)
 	freq = models.IntegerField()
 	score = models.FloatField()
+
+class Feedback(models.Model):
+  feedback = models.TextField(max_length=10000)
