@@ -1,9 +1,8 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 
 <section class="section">
-  <div class="container">
+  <div class="container" id="centered-container">
     <h1 class="title">Results</h1>
-    <h1 class="title is-6">If input is empty, it will use a sample text</h1>
     <div class="mt-5">
       <table class="table-container results">
         <thead>
@@ -24,39 +23,43 @@
           </tr>
         </tbody>
       </table>
-      <a
-        download="text_analyzer_results.png"
-        href="{% static 'text_analyzer_results.png' %}"
-        title="ImageName"
-      >
-        download results as image
-      </a>
-      <button
-        id="share"
-        class="button mx-5 my-2 is-link"
-        data-clipboard-target="#tabel"
-      >
-        Share
-      </button>
+      <div class="pagination" id="results-buttons">
+        <a>
+          <button style="width: 200px; height: 100%; white-space: normal;" class="button is-black mr-2 pagination-previous" id="share" class="button is-link pagination-next" data-clipboard-target="#tabel">
+            Copy results to clipboard
+          </button>
+        </a>
+        <a download="text_analyzer_results.png" href="{% static 'text_analyzer_results.png' %}" title="ImageName">
+          <button style="width: 200px; height: 100%; white-space: normal;" class="button mr-2 pagination-previous">Download results as image</button>
+        </a>
+      </div>
     </div>
   </div>
 </section>
-<form action="/" method="post" class="form">
-  {% csrf_token %}
-  <textarea
-    class="textarea is-primary mx-5"
-    placeholder="Feedback"
-    name="feedback"
-  ></textarea>
-  <button
-    id="submit"
-    data-clipboard-target="#tabel"
-    class="button mx-5 my-2 is-link"
-    type="submit"
-  >
-    Submit
-  </button>
-</form>
+
+<section class="section">
+  <div class="container" id="centered-container">
+    <h1 class="title mt-5">What do you think about this?</h1>
+    <h2 class="title is-6">Share your feedback, suggestions, any ideas about what you'd want us to continue this app...</h2>
+    <form action="/" method="post" class="form">
+      {% csrf_token %}
+      <textarea
+        class="textarea is-primary"
+        placeholder="Feedback"
+        name="feedback"
+      ></textarea>
+      <button
+        id="submit"
+        data-clipboard-target="#tabel"
+        class="button my-2 is-link"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</section>
+
 {% endblock %}{% block scripts %}
 <script>
   var clipboard = new ClipboardJS(".button");
