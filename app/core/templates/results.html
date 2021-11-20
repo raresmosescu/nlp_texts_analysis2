@@ -1,31 +1,45 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 
 <section class="section">
-  <div class="container" id="centered-container">
-    <h1 class="title">Results</h1>
-    <div class="mt-5">
-      <table class="table-container results">
-        <thead>
-          <tr>
-            <th>Noun</th>
-            <th>Number of times used</th>
-          </tr>
-        </thead>
-        <tbody id="tabel">
-          {% for k,v in results %}
-          <tr>
-            <td>{{k}}</td>
-            <td>{{v}}</td>
-          </tr>
-          {% endfor %}
-          <tr style="color: white">
-            <td>Daca vrei intra daca nu nu etc</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="pagination" id="results-buttons">
+  <div class="container">
+    <div class="columns" style="display: flex; justify-content: center">
+      <div
+        class="column is-half"
+        style="
+          background: rgb(236, 236, 236);
+          border-radius: 30px;
+          padding: 2em;
+          padding-top: 0;
+        "
+      >
+        <div class="column" style="text-align: center; font-size: 1.5rem">
+          Results
+        </div>
+        {% for k,v in results %}
+        <div
+          class="column"
+          style="
+            background: rgb(219, 219, 219);
+            box-shadow: 1px 2px rgb(179, 179, 179);
+            border-radius: 30px;
+            margin-bottom: 0.3em;
+            display: flex;
+            justify-content: space-between;
+            padding-right: 1em;
+            padding-left: 1em;
+            font-size: 1.3rem;
+            padding-top: 0.2em;
+            padding-bottom: 0.2em;
+          "
+        >
+          <p class="yrd">{{k}}</p>
+          <p class="yrd">{{v}}</p>
+        </div>
+        {% endfor %}
+
+        <div class="pagination" id="results-buttons">
         <a>
-          <button style="width: 200px; height: 100%; white-space: normal;" class="button is-black mr-2 pagination-previous" id="share" class="button is-link pagination-next" data-clipboard-target="#tabel">
+          <button style="width: 200px; height: 100%; white-space: normal;" class="button is-black mr-2 pagination-previous" id="share" class="button is-link pagination-next" data-clipboard-target=".yrd">
             Copy results to clipboard
           </button>
         </a>
@@ -62,14 +76,18 @@
 
 {% endblock %}{% block scripts %}
 <script>
-  var clipboard = new ClipboardJS(".button");
+  $(function(){
+    const results = {{ json_results|safe }};
 
-  clipboard.on("success", function (e) {
-    console.log(e);
-  });
-
-  clipboard.on("error", function (e) {
-    console.log(e);
-  });
+    let text = ''
+    for (let i in results)
+      text += `${i}: ${results[i]}\n`
+    
+    text += 'If u wanna try go get me a beer https//here-is-link'
+    // console.log(text)
+    $('#share').click({}, () => {
+    navigator.clipboard.writeText(text)
+    })
+});
 </script>
 {% endblock scripts %}
