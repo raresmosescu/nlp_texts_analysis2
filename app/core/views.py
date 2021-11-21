@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from core.generate_image import generate_by_dict
 
-from core.models import Feedbacks
+from core.models import Feedback
 from .nlp import analyze_text, analyze_whatsapp_export
 from .sample_texts import samples
 from .models import Noun
@@ -12,7 +12,7 @@ def home(request):
   if request.method == 'POST':
     feedback = request.POST.get('feedback')
     if feedback:
-      Feedbacks.objects.create(feedback=feedback)
+      Feedback.objects.create(feedback=feedback)
   return render(request, 'index_EN.html')
 
 def results(request):
