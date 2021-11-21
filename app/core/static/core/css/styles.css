@@ -2,9 +2,10 @@
     #centered-container {
         width: 50vw;
     }
-    #results-buttons {
+    /* #results-buttons {
         width: 425px;
-    }
+    } */
+    /* arata urat cu chestia asta de sus */
 }
 
 .no-link-decoration {
@@ -28,3 +29,31 @@ footer{
     font-size: small;
 }
 
+.butoane {  
+  border-radius: 20px;
+}
+
+#results-buttons {
+  margin-top: 1.5em;
+}
+
+#main_results {
+  background: rgb(219, 219, 219);
+  box-shadow: 1px 2px rgb(179, 179, 179);
+  border-radius: 30px;
+  margin-bottom: 0.3em;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1em;
+  padding-left: 1em;
+  font-size: 1.3rem;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+}
+
+#results-container {
+  background: rgb(236, 236, 236);
+  border-radius: 30px;
+  padding: 2em;
+  padding-top: 0;
+}

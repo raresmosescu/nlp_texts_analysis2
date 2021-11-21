@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from core.generate_image import generate_by_dict
+import json
 
 from core.models import Feedback
 from .nlp import analyze_text, analyze_whatsapp_export
@@ -27,7 +28,8 @@ def results(request):
         else:
           r = analyze_text(samples.sample1).most_common(60)
         generate_by_dict(dict(r))
-        return render(request, 'results_EN.html', context={'results': r, 'results_str': str(dict(r))})
+        json_results = json.dumps(dict(r), indent=4)
+        return render(request, 'results_EN.html', context={'results': r, 'results_str': str(dict(r)), 'json_results': json_results})
         
       else:
         text = request.FILES['file'].read()
@@ -40,7 +42,8 @@ def results(request):
         else:
           r = analyze_whatsapp_export(samples.sample1).most_common(60)
         generate_by_dict(dict(r))
-        return render(request, 'results_EN.html', context={'results': r, 'results_str': str(dict(r))})
+        json_results = json.dumps(dict(r), indent=4)
+        return render(request, 'results_EN.html', context={'results': r, 'results_str': str(dict(r)), 'json_results': json_results})
           
     else:
       return HttpResponse('i donno man')
